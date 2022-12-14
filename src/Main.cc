@@ -26,15 +26,15 @@ int main()
 	std::cout << "--------------HASH------------"<< std::endl;
 	Hash hash = Hash();
 
-	hash.insert(1, 20);
-	hash.insert(2, 70);
-	hash.insert(42, 80);
-	hash.insert(4, 25);
-	hash.insert(12, 44);
-	hash.insert(14, 32);
-	hash.insert(17, 11);
-	hash.insert(13, 78);
-	hash.insert(37, 97);
+	hash.insert(1, "20");
+	hash.insert(2, "70");
+	hash.insert(42, "80");
+	hash.insert(4, "25");
+	hash.insert(12, "44");
+	hash.insert(14, "32");
+	hash.insert(17, "11");
+	hash.insert(13, "78");
+	hash.insert(37, "97");
 
 	HashItem* item = hash.search(13);
 

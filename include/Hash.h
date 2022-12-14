@@ -11,17 +11,26 @@
 #ifndef HASH_H
 #define HASH_H
 
+#include <iostream>
+#include <string.h>
+
  /**
   * @brief
   */
 class HashItem {
 public:
-	int m_data;
 	int m_key;
+	std::string m_data;
+
 	/**
- * @brief
- */
-	HashItem(int data, int key) : m_data(data), m_key(key) {};
+	 * @brief
+	 */
+	HashItem(int key, std::string data);
+
+	/**
+	 * @brief
+	 */
+	~HashItem();
 };
 
 /**
@@ -44,6 +53,10 @@ public:
 	 * @brief
 	 */
 	Hash();
+	/**
+	 * @brief
+	 */
+	~Hash();
 
 	/**
 	 * @brief
@@ -53,7 +66,7 @@ public:
 	/**
 	 * @brief
 	 */
-	void insert(int key, int data);
+	void insert(int key, std::string data);
 
 	/**
 	 * @brief

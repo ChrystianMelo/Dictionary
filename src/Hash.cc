@@ -1,6 +1,6 @@
 #include "Hash.h"
 
-#include <iostream>
+
 namespace {
 	/**
 	 * @brief Troca as posições do array.
@@ -15,7 +15,21 @@ namespace {
 		*p2 = temp;
 	}
 }
-Hash::Hash() {}
+
+HashItem::HashItem(int key, std::string data) : m_key(key), m_data(data) {}
+
+HashItem::~HashItem() {}
+
+Hash::Hash() {
+	HashItem* hashArray = (HashItem*) malloc (0 * sizeof (HashItem));
+}
+Hash::~Hash() {
+	for (int i = 0; i < hashArraySize; ++i) 
+		(hashArray+i)->~HashItem(); // This line calls destructors.
+	
+	hashArraySize = 0;
+	delete hashArray;
+}
 
 HashItem* Hash::search(int m_key) {
 	for (int i = hashCode(m_key); i < hashArraySize; ++i) {
@@ -27,11 +41,11 @@ HashItem* Hash::search(int m_key) {
 	return nullptr;
 }
 
-void Hash::insert(int key, int data) {
+void Hash::insert(int key, std::string data) {
 	hashArraySize++;
 	hashArray = (HashItem*)realloc(hashArray, hashArraySize * sizeof(HashItem));
 
-	*(hashArray + (hashArraySize - 1)) = HashItem(data, key);
+	new (hashArray + (hashArraySize - 1)) HashItem(key, data);
 }
 
 void Hash::remove(HashItem* item) {
@@ -41,7 +55,7 @@ void Hash::remove(HashItem* item) {
 		HashItem* item = hashArray + i;
 
 		if (item->m_key == key) {
-
+			(hashArray + i)->~HashItem();
 			for (int j = i+1; j < hashArraySize; ++j)
 				swap(hashArray + j, hashArray+j-1);
 
