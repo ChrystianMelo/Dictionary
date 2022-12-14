@@ -15,6 +15,13 @@ std::string Verbete::getType() {
 		return "(v)";
 }
 
+std::string Verbete::getMeaning() {
+	std::string meaning = *m_meaning;
+	for (int i = 1; i < m_meaning_size; i++)
+		meaning += "," + *(m_meaning + i);
+	return meaning;
+}
+
 void Verbete::addMeaning(std::string meaning) {
 	m_meaning_size++;
 	m_meaning = (std::string*)realloc(m_meaning, m_meaning_size * sizeof(std::string));

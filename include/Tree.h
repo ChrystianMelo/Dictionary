@@ -58,6 +58,16 @@ public:
 	/**
 	 * @brief
 	 */
+	void setVerbete(Verbete& v);
+
+	/**
+	 * @brief
+	 */
+	Verbete& getVerbete();
+
+	/**
+	 * @brief
+	 */
 	std::string getKey();
 
 	/**

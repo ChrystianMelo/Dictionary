@@ -57,6 +57,8 @@ public:
 	 */
 	std::string getType();
 
+	std::string getMeaning();
+
 	/**
 	 * @brief
 	 */

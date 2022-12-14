@@ -20,6 +20,10 @@ HashItem::HashItem(VerbeteType type, std::string key, std::string data) : verbet
 
 HashItem::~HashItem() {}
 
+void HashItem::setVerbete(Verbete& v) { verbete = v; }
+
+Verbete& HashItem::getVerbete() { return verbete; }
+
 std::string HashItem::getKey() { return verbete.m_word; }
 
 std::string HashItem::getData() {

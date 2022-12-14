@@ -44,12 +44,17 @@ TreeNode::TreeNode(VerbeteType type, std::string key, std::string data) : verbet
 TreeNode* Tree::search(std::string key) {
 	return searchRecursevelly(m_root, key);
 }
+
+void TreeNode::setVerbete(Verbete& v) { verbete = v; }
+
+Verbete& TreeNode::getVerbete() { return verbete; }
+
 std::string TreeNode::getKey() { return verbete.m_word; }
 
 std::string TreeNode::getData() {
 	std::string meaning = *verbete.m_meaning;
 	for (int i = 1; i < verbete.m_meaning_size; i++)
-		meaning += "," + *(verbete.m_meaning + i);
+		meaning += ", " + *(verbete.m_meaning + i);
 	return meaning;
 }
 

@@ -27,6 +27,15 @@ private:
 	 */
 	Verbete verbete;
 public:
+	/**
+	 * @brief
+	 */
+	void setVerbete(Verbete& v);
+
+	/**
+	 * @brief
+	 */
+	Verbete& getVerbete();
 
 	/**
 	 * @brief

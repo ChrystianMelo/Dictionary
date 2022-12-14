@@ -42,12 +42,12 @@ private:
 	/**
 	 * @brief
 	 */
-	Hash hash;
+	Hash* hash;
 
 	/**
 	 * @brief
 	 */
-	Tree tree;
+	Tree *tree;
 public:
 	/**
 	 * @brief Construtor da classe.
@@ -62,26 +62,26 @@ public:
 	/**
 	 * @brief Metodo de pesquisa no dicionário.
 	 */
-	int pesquisaDic(Verbete* it);
+	Verbete& search(std::string word);
 
 	/**
 	 * @brief Metodo de insere no dicionário.
 	 */
-	int insereDic(Verbete* it);
+	void insert(VerbeteType type, std::string key, std::string data);
 
 	/**
 	 * @brief Metodo de imprime o dicionário.
 	 */
-	int imprimeDic();
+	void imprimeDic();
 
 	/**
 	 * @brief Metodo de atualiza um verbete presente no dicionário.
 	 */
-	int atualizaDic(Verbete* it);
+	void atualizaDic(Verbete* it);
 
 	/**
 	 * @brief Metodo de remove um verbete do dicionário.
 	 */
-	int removeDic(Verbete* it);
+	void remove(Verbete& it);
 };
 #endif
