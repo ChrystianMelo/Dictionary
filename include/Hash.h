@@ -18,7 +18,7 @@
 
  /**
   * @brief
-  */
+  */ 
 class HashItem {
 private:
 

@@ -22,7 +22,7 @@ enum VerbeteType {
 };
 
 /**
- * @brief Definição da classe verbete.
+ * @brief Definiï¿½ï¿½o da classe verbete.
  */
 class Verbete
 {
