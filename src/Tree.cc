@@ -1,53 +1,79 @@
 #include "Tree.h"
 
 namespace {
-	void insertRecursevelly(TreeNode* root, std::string key, std::string data) {
-		if (key <= root->m_key)
+
+	/**
+	 * @brief Adiciona na arvore através de um processo recursivo.
+	 */
+	void insertRecursevelly(TreeNode* root, VerbeteType type, std::string key, std::string data) {
+		if (key <= root->getKey())
 			if (root->leftChild == nullptr) {
-				root->leftChild = new TreeNode(key,data);
+				root->leftChild = new TreeNode(type,key,data);
 				root->leftChild->parent = root;
 			}
 			else
-				insertRecursevelly(root->leftChild,key, data);
+				insertRecursevelly(root->leftChild, type, key, data);
 		else
 			if (root->rightChild == nullptr) {
-				root->rightChild = new TreeNode(key, data);
+				root->rightChild = new TreeNode(type, key, data);
 				root->rightChild->parent = root;
 			}
 			else
-				insertRecursevelly(root->rightChild, key, data);
+				insertRecursevelly(root->rightChild, type, key, data);
 	}
+
+	/**
+	 * @brief Faz a busca na árvore através de um processo recursivo.
+	 */
 	TreeNode* searchRecursevelly(TreeNode* root, std::string key) {
 		if (root == nullptr)
 			return nullptr;
 
-		if (root->m_key == key)
+		if (root->getKey() == key)
 			return root;
 
-		if (key <= root->m_key)
+		if (key <= root->getKey())
 			return searchRecursevelly(root->leftChild, key);
 		else
 			return searchRecursevelly(root->rightChild, key);
 	}
 }
 
-TreeNode::TreeNode(std::string key, std::string data) : m_key(key), m_data(data), leftChild(nullptr), rightChild(nullptr), parent(nullptr) {}
+TreeNode::TreeNode(VerbeteType type, std::string key, std::string data) : verbete(type, key, data), leftChild(nullptr), rightChild(nullptr), parent(nullptr) {}
 
 TreeNode* Tree::search(std::string key) {
 	return searchRecursevelly(m_root, key);
 }
+std::string TreeNode::getKey() { return verbete.m_word; }
 
-void Tree::insert(std::string key, std::string data) {
+std::string TreeNode::getData() {
+	std::string meaning = *verbete.m_meaning;
+	for (int i = 1; i < verbete.m_meaning_size; i++)
+		meaning += "," + *(verbete.m_meaning + i);
+	return meaning;
+}
+
+void TreeNode::addData(std::string meaning) {
+	verbete.addMeaning(meaning);
+}
+void Tree::insert(VerbeteType type, std::string key, std::string data) {
 	if (m_root == nullptr)
-		m_root = new TreeNode(key,data);
-	else
-		insertRecursevelly(m_root,key, data);
+		m_root = new TreeNode(type, key,data);
+	else {
+		TreeNode* node = search(key);
+
+		if (node == nullptr)
+			insertRecursevelly(m_root, type, key, data);
+		else {
+			node->addData(data);
+		}
+	}
 }
 
 void Tree::remove(TreeNode* node) {
 	TreeNode* parent = node->parent;
 	TreeNode* temp;
-	bool isLeftNode = node->m_key <= parent->m_key;
+	bool isLeftNode = node->getKey() <= parent->getKey();
 
 	if (node->rightChild == nullptr)
 	{

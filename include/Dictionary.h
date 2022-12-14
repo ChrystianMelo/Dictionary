@@ -13,12 +13,18 @@
 #ifndef DICTIONARY_H
 #define DICTIONARY_H
 
+#include <iostream>
+#include <string.h>
+#include "Verbete.h"
+#include "Hash.h"
+#include "Tree.h"
+
 /**
- * @brief Definição da classe verbete.
+ * @brief Tipo da classe dicionário.
  *
  */
-class Verbete
-{
+enum DictionaryType {
+	HASH, TREE
 };
 
 /**
@@ -27,36 +33,55 @@ class Verbete
  */
 class Dictionary
 {
+private: 
+	/**
+	 * @brief
+	 */
+	DictionaryType m_type;
+
+	/**
+	 * @brief
+	 */
+	Hash hash;
+
+	/**
+	 * @brief
+	 */
+	Tree tree;
 public:
-    /**
-     * @brief Construtor da classe.
-     */
-    Dictionary(int n);
+	/**
+	 * @brief Construtor da classe.
+	 */
+	Dictionary(DictionaryType type);
 
-    /**
-     * @brief Destrutor da classe.
-     */
-    ~Dictionary();
+	/**
+	 * @brief Destrutor da classe.
+	 */
+	~Dictionary();
 
-    /**
-     * @brief Metodo de pesquisa no dicionário.
-     */
-    int pesquisaDic(Verbete *it);
-    /**
-     * @brief Metodo de insere no dicionário.
-     */
-    int insereDic(Verbete *it);
-    /**
-     * @brief Metodo de imprime o dicionário.
-     */
-    int imprimeDic();
-    /**
-     * @brief Metodo de atualiza um verbete presente no dicionário.
-     */
-    int atualizaDic(Verbete *it);
-    /**
-     * @brief Metodo de remove um verbete do dicionário.
-     */
-    int removeDic(Verbete *it);
+	/**
+	 * @brief Metodo de pesquisa no dicionário.
+	 */
+	int pesquisaDic(Verbete* it);
+
+	/**
+	 * @brief Metodo de insere no dicionário.
+	 */
+	int insereDic(Verbete* it);
+
+	/**
+	 * @brief Metodo de imprime o dicionário.
+	 */
+	int imprimeDic();
+
+	/**
+	 * @brief Metodo de atualiza um verbete presente no dicionário.
+	 */
+	int atualizaDic(Verbete* it);
+
+	/**
+	 * @brief Metodo de remove um verbete do dicionário.
+	 */
+	int removeDic(Verbete* it);
 };
 #endif

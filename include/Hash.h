@@ -14,46 +14,44 @@
 #include <iostream>
 #include <string.h>
 #include<algorithm>
+#include "Verbete.h"
 
  /**
   * @brief
   */
 class HashItem {
-public:
-	std::string m_key;
-	std::string m_data;
+private:
 
 	/**
 	 * @brief
 	 */
-	HashItem(std::string key, std::string data);
+	Verbete verbete;
+public:
+
+	/**
+	 * @brief
+	 */
+	std::string getKey();
+
+	/**
+	 * @brief
+	 */
+	std::string getData();
+
+	/**
+	 * @brief
+	 */
+	void addData(std::string meaning);
+
+	/**
+	 * @brief
+	 */
+	HashItem(VerbeteType type, std::string key, std::string data);
 
 	/**
 	 * @brief
 	 */
 	~HashItem();
-
-	bool operator<(const HashItem& b) {
-		const char * thisData = m_data.c_str();
-		const char * otherData = b.m_data.c_str();
-		return std::lexicographical_compare(thisData, thisData + m_data.size(), otherData, otherData+ b.m_data.size());
-	}
-
-	bool operator>(const HashItem& b) {
-		const char* thisData = m_data.c_str();
-		const char* otherData = b.m_data.c_str();
-		return !std::lexicographical_compare(thisData, thisData + m_data.size(), otherData, otherData + b.m_data.size());
-	}
-
-	bool operator==(const HashItem& b) {
-		return m_data.compare(b.m_data) == 0;
-	}
-
-	bool operator<=(const HashItem& b) {
-		const char* thisData = m_data.c_str();
-		const char* otherData = b.m_data.c_str();
-		return std::lexicographical_compare(thisData, thisData + m_data.size(), otherData, otherData + b.m_data.size()) || m_data.compare(b.m_data) == 0;
-	}
 };
 
 /**
@@ -63,19 +61,28 @@ public:
  */
 class Hash {
 private:
+
+	/**
+	 * @brief
+	 */
 	HashItem* hashArray;
+
+	/**
+	 * @brief
+	 */
 	int hashArraySize = 0;
 
 	/**
 	 * @brief
 	 */
-	int hashCode(int m_key) { return m_key % hashArraySize; }
+	int hashCode(int key) { return key % hashArraySize; }
 
 public:
 	/**
 	 * @brief
 	 */
 	Hash();
+
 	/**
 	 * @brief
 	 */
@@ -84,12 +91,12 @@ public:
 	/**
 	 * @brief
 	 */
-	HashItem* search(std::string m_key);
+	HashItem* search(std::string key);
 
 	/**
 	 * @brief
 	 */
-	void insert(std::string key, std::string data);
+	void insert(VerbeteType type, std::string key, std::string data);
 
 	/**
 	 * @brief

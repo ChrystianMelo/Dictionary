@@ -13,7 +13,11 @@
 
 #include <iostream>
 #include <string.h>
+#include "Verbete.h"
 
+/**
+* @brief
+*/
 enum NodeFlag {
 	LEFT_NODE, RIGHT_NODE
 };
@@ -22,14 +26,50 @@ enum NodeFlag {
  * @brief
  */
 class TreeNode {
-public:
-	std::string m_key;
-	std::string m_data;
-	TreeNode* parent;
-	TreeNode* leftChild;
-	TreeNode* rightChild;
+private:
 
-	TreeNode(std::string key, std::string data);
+	/**
+	 * @brief
+	 */
+	Verbete verbete;
+public:
+
+	/**
+	 * @brief
+	 */
+	TreeNode* parent;
+
+	/**
+	 * @brief
+	 */
+	TreeNode* leftChild;
+
+	/**
+	 * @brief
+	 */
+	TreeNode* rightChild;
+public:
+
+	/**
+	 * @brief Construtor da classe.
+	 */
+	TreeNode(VerbeteType type, std::string key, std::string data);
+
+	/**
+	 * @brief
+	 */
+	std::string getKey();
+
+	/**
+	 * @brief
+	 */
+	std::string getData();
+
+	/**
+	 * @brief
+	 */
+	void addData(std::string meaning);
+
 };
 
 /**
@@ -38,6 +78,10 @@ public:
  */
 class Tree {
 private:
+
+	/**
+	 * @brief
+	 */
 	TreeNode* m_root;
 public:
 	/**
@@ -48,7 +92,7 @@ public:
 	/**
 	 * @brief
 	 */
-	void insert(std::string key, std::string data);
+	void insert(VerbeteType type, std::string key, std::string data);
 
 	/**
 	 * @brief

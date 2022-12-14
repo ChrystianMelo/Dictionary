@@ -16,10 +16,22 @@ namespace {
 	}
 }
 
-HashItem::HashItem(std::string key, std::string data) : m_key(key), m_data(data) {}
+HashItem::HashItem(VerbeteType type, std::string key, std::string data) : verbete(type, key, data){}
 
 HashItem::~HashItem() {}
 
+std::string HashItem::getKey() { return verbete.m_word; }
+
+std::string HashItem::getData() {
+	std::string meaning = *verbete.m_meaning;
+	for (int i = 1; i < verbete.m_meaning_size; i++)
+		meaning += "," + *(verbete.m_meaning + i);
+	return meaning;
+}
+
+void HashItem::addData(std::string meaning) {
+	verbete.addMeaning(meaning);
+}
 Hash::Hash() {
 	HashItem* hashArray = (HashItem*) malloc (0 * sizeof (HashItem));
 }
@@ -31,30 +43,36 @@ Hash::~Hash() {
 	delete hashArray;
 }
 
-HashItem* Hash::search(std::string m_key) {
+HashItem* Hash::search(std::string key) {
 	for (int i = 0; i < hashArraySize; ++i) {
 		HashItem* item = hashArray + i;
-		if (item->m_key == m_key)
+		if (item->getKey() == key)
 			return item;
 	}
 
 	return nullptr;
 }
 
-void Hash::insert(std::string key, std::string data) {
-	hashArraySize++;
-	hashArray = (HashItem*)realloc(hashArray, hashArraySize * sizeof(HashItem));
+void Hash::insert(VerbeteType type, std::string key, std::string data) {
+	HashItem *item = search(key);
+	if (item == nullptr) {
+		hashArraySize++;
+		hashArray = (HashItem*)realloc(hashArray, hashArraySize * sizeof(HashItem));
 
-	new (hashArray + (hashArraySize - 1)) HashItem(key, data);
+		new (hashArray + (hashArraySize - 1)) HashItem(type, key, data);
+	}
+	else {
+		item->addData(data);
+	}
 }
 
 void Hash::remove(HashItem* item) {
-	std::string key = item->m_key;
+	std::string key = item->getKey();
 
 	for (int i = 0; i < hashArraySize; ++i, i %= hashArraySize) {
 		HashItem* item = hashArray + i;
 
-		if (item->m_key == key) {
+		if (item->getKey() == key) {
 			(hashArray + i)->~HashItem();
 			for (int j = i+1; j < hashArraySize; ++j)
 				swap(hashArray + j, hashArray+j-1);

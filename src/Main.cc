@@ -21,25 +21,32 @@
   */
 int main()
 {
-	//Dictionary* pTest = new Dictionary(3);
+	std::cout << "--------------DICTIONARY------------" << std::endl;
 
-	std::cout << "--------------HASH------------"<< std::endl;
+	Dictionary* hashDictionary = new Dictionary(DictionaryType::HASH);
+
+	Verbete verbete = Verbete(VerbeteType::VERBO, "1", "20");
+	for (int i = 0 ;i < verbete.m_meaning_size; i++)
+		std::cout << verbete.getType() << verbete.m_word << " : " << *(verbete.m_meaning + i) << std::endl;
+
+	std::cout << "--------------HASH------------" << std::endl;
 	Hash hash = Hash();
 
-	hash.insert("1", "20");
-	hash.insert("2", "70");
-	hash.insert("42", "80");
-	hash.insert("4", "25");
-	hash.insert("12", "44");
-	hash.insert("14", "32");
-	hash.insert("17", "11");
-	hash.insert("13", "78");
-	hash.insert("37", "97");
+	hash.insert(VerbeteType::NOME,"1", "20");
+	hash.insert(VerbeteType::NOME,"2", "70");
+	hash.insert(VerbeteType::NOME,"42", "80");
+	hash.insert(VerbeteType::NOME,"4", "25");
+	hash.insert(VerbeteType::NOME,"12", "44");
+	hash.insert(VerbeteType::NOME,"14", "32");
+	hash.insert(VerbeteType::NOME,"17", "11");
+	hash.insert(VerbeteType::NOME,"13", "78");
+	hash.insert(VerbeteType::NOME,"13", "segundo elenenteo");
+	hash.insert(VerbeteType::NOME,"37", "97");
 
 	HashItem* item = hash.search("13");
 
 	if (item != nullptr)
-		std::cout << "Element found: " << item->m_data << std::endl;
+		std::cout << "Element found: " << item->getData() << std::endl;
 	else
 		std::cout << "Element not found" << std::endl;
 
@@ -49,7 +56,7 @@ int main()
 	HashItem* ite2m = hash.search("13");
 
 	if (ite2m != nullptr)
-		std::cout << "Element found: " << ite2m->m_data << std::endl;
+		std::cout << "Element found: " << ite2m->getData() << std::endl;
 	else
 		std::cout << "Element not found" << std::endl;
 
@@ -57,20 +64,21 @@ int main()
 
 	Tree tree = Tree();
 
-	tree.insert("1", "20");
-	tree.insert("2", "70");
-	tree.insert("42", "80");
-	tree.insert("4", "25");
-	tree.insert("12", "44");
-	tree.insert("14", "32");
-	tree.insert("17", "11");
-	tree.insert("13", "78");
-	tree.insert("37", "97");
+	tree.insert(VerbeteType::NOME,"1", "20");
+	tree.insert(VerbeteType::NOME,"2", "70");
+	tree.insert(VerbeteType::NOME,"42", "80");
+	tree.insert(VerbeteType::NOME,"4", "25");
+	tree.insert(VerbeteType::NOME,"12", "44");
+	tree.insert(VerbeteType::NOME,"14", "32");
+	tree.insert(VerbeteType::NOME,"17", "11");
+	tree.insert(VerbeteType::NOME,"13", "78");
+	tree.insert(VerbeteType::NOME,"13", "segundo elemento");
+	tree.insert(VerbeteType::NOME,"37", "97");
 
 	TreeNode* node = tree.search("13");
 
 	if (node != nullptr)
-		std::cout << "Element found: " << node->m_data << std::endl;
+		std::cout << "Element found: " << node->getData() << std::endl;
 	else
 		std::cout << "Element not found" << std::endl;
 
@@ -80,7 +88,7 @@ int main()
 	TreeNode* node2 = tree.search("13");
 
 	if (node2 != nullptr)
-		std::cout << "Element found: " << node2->m_data << std::endl;
+		std::cout << "Element found: " << node2->getData() << std::endl;
 	else
 		std::cout << "Element not found" << std::endl;
 
