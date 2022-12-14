@@ -23,13 +23,13 @@ enum NodeFlag {
  */
 class TreeNode {
 public:
-	int m_key;
+	std::string m_key;
 	std::string m_data;
 	TreeNode* parent;
 	TreeNode* leftChild;
 	TreeNode* rightChild;
 
-	TreeNode(int key, std::string data);
+	TreeNode(std::string key, std::string data);
 };
 
 /**
@@ -43,13 +43,12 @@ public:
 	/**
 	 * @brief
 	 */
-	TreeNode* search(int key);
+	TreeNode* search(std::string key);
 
 	/**
 	 * @brief
 	 */
-
-	void insert(int key, std::string data);
+	void insert(std::string key, std::string data);
 
 	/**
 	 * @brief

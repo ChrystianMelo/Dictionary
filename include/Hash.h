@@ -13,24 +13,47 @@
 
 #include <iostream>
 #include <string.h>
+#include<algorithm>
 
  /**
   * @brief
   */
 class HashItem {
 public:
-	int m_key;
+	std::string m_key;
 	std::string m_data;
 
 	/**
 	 * @brief
 	 */
-	HashItem(int key, std::string data);
+	HashItem(std::string key, std::string data);
 
 	/**
 	 * @brief
 	 */
 	~HashItem();
+
+	bool operator<(const HashItem& b) {
+		const char * thisData = m_data.c_str();
+		const char * otherData = b.m_data.c_str();
+		return std::lexicographical_compare(thisData, thisData + m_data.size(), otherData, otherData+ b.m_data.size());
+	}
+
+	bool operator>(const HashItem& b) {
+		const char* thisData = m_data.c_str();
+		const char* otherData = b.m_data.c_str();
+		return !std::lexicographical_compare(thisData, thisData + m_data.size(), otherData, otherData + b.m_data.size());
+	}
+
+	bool operator==(const HashItem& b) {
+		return m_data.compare(b.m_data) == 0;
+	}
+
+	bool operator<=(const HashItem& b) {
+		const char* thisData = m_data.c_str();
+		const char* otherData = b.m_data.c_str();
+		return std::lexicographical_compare(thisData, thisData + m_data.size(), otherData, otherData + b.m_data.size()) || m_data.compare(b.m_data) == 0;
+	}
 };
 
 /**
@@ -61,12 +84,12 @@ public:
 	/**
 	 * @brief
 	 */
-	HashItem* search(int m_key);
+	HashItem* search(std::string m_key);
 
 	/**
 	 * @brief
 	 */
-	void insert(int key, std::string data);
+	void insert(std::string key, std::string data);
 
 	/**
 	 * @brief

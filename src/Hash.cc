@@ -16,7 +16,7 @@ namespace {
 	}
 }
 
-HashItem::HashItem(int key, std::string data) : m_key(key), m_data(data) {}
+HashItem::HashItem(std::string key, std::string data) : m_key(key), m_data(data) {}
 
 HashItem::~HashItem() {}
 
@@ -31,8 +31,8 @@ Hash::~Hash() {
 	delete hashArray;
 }
 
-HashItem* Hash::search(int m_key) {
-	for (int i = hashCode(m_key); i < hashArraySize; ++i) {
+HashItem* Hash::search(std::string m_key) {
+	for (int i = 0; i < hashArraySize; ++i) {
 		HashItem* item = hashArray + i;
 		if (item->m_key == m_key)
 			return item;
@@ -41,7 +41,7 @@ HashItem* Hash::search(int m_key) {
 	return nullptr;
 }
 
-void Hash::insert(int key, std::string data) {
+void Hash::insert(std::string key, std::string data) {
 	hashArraySize++;
 	hashArray = (HashItem*)realloc(hashArray, hashArraySize * sizeof(HashItem));
 
@@ -49,9 +49,9 @@ void Hash::insert(int key, std::string data) {
 }
 
 void Hash::remove(HashItem* item) {
-	int key = item->m_key;
+	std::string key = item->m_key;
 
-	for (int i = hashCode(key); i < hashArraySize; ++i, i %= hashArraySize) {
+	for (int i = 0; i < hashArraySize; ++i, i %= hashArraySize) {
 		HashItem* item = hashArray + i;
 
 		if (item->m_key == key) {

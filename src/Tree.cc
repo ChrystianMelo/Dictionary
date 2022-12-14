@@ -1,7 +1,7 @@
 #include "Tree.h"
 
 namespace {
-	void insertRecursevelly(TreeNode* root, int key, std::string data) {
+	void insertRecursevelly(TreeNode* root, std::string key, std::string data) {
 		if (key <= root->m_key)
 			if (root->leftChild == nullptr) {
 				root->leftChild = new TreeNode(key,data);
@@ -17,7 +17,7 @@ namespace {
 			else
 				insertRecursevelly(root->rightChild, key, data);
 	}
-	TreeNode* searchRecursevelly(TreeNode* root, int key) {
+	TreeNode* searchRecursevelly(TreeNode* root, std::string key) {
 		if (root == nullptr)
 			return nullptr;
 
@@ -31,13 +31,13 @@ namespace {
 	}
 }
 
-TreeNode::TreeNode(int key, std::string data) : m_key(key), m_data(data), leftChild(nullptr), rightChild(nullptr), parent(nullptr) {}
+TreeNode::TreeNode(std::string key, std::string data) : m_key(key), m_data(data), leftChild(nullptr), rightChild(nullptr), parent(nullptr) {}
 
-TreeNode* Tree::search(int key) {
+TreeNode* Tree::search(std::string key) {
 	return searchRecursevelly(m_root, key);
 }
 
-void Tree::insert(int key, std::string data) {
+void Tree::insert(std::string key, std::string data) {
 	if (m_root == nullptr)
 		m_root = new TreeNode(key,data);
 	else
