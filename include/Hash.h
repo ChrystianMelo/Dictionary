@@ -13,29 +13,30 @@
 
 #include <iostream>
 #include <string.h>
-#include<algorithm>
+#include <algorithm>
 #include "Verbete.h"
 
- /**
-  * @brief
-  */
-class HashItem {
+/**
+ * @brief
+ */
+class HashItem
+{
 private:
-
 	/**
 	 * @brief
 	 */
 	Verbete verbete;
+
 public:
 	/**
 	 * @brief
 	 */
-	void setVerbete(Verbete& v);
+	void setVerbete(Verbete &v);
 
 	/**
 	 * @brief
 	 */
-	Verbete& getVerbete();
+	Verbete &getVerbete();
 
 	/**
 	 * @brief
@@ -68,13 +69,13 @@ public:
  *
  * --------> https ://www.tutorialspoint.com/data_structures_algorithms/hash_table_program_in_c.htm <------------------
  */
-class Hash {
+class Hash
+{
 private:
-
 	/**
 	 * @brief
 	 */
-	HashItem* hashArray;
+	HashItem *hashArray;
 
 	/**
 	 * @brief
@@ -100,7 +101,7 @@ public:
 	/**
 	 * @brief
 	 */
-	HashItem* search(std::string key);
+	HashItem *search(std::string key);
 
 	/**
 	 * @brief
@@ -110,7 +111,7 @@ public:
 	/**
 	 * @brief
 	 */
-	void remove(HashItem* item);
+	void remove(HashItem *item);
 
 	/**
 	 * @brief
@@ -119,4 +120,3 @@ public:
 };
 
 #endif
-
