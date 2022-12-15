@@ -1,4 +1,16 @@
-﻿#include "Dictionary.h"
+﻿/**
+ * @file Dictionary.cc
+ * @author Chrystian Melo (meloo.chrys@gmail.com)
+ * @brief Classe dicionário. Esta dicionário deve
+ * permitir consultas, inserções, retiradas, impressão
+ * ordenada e atualização de uma entrada.
+ * @version 0.1
+ * @date 2022-12-13
+ *
+ * @copyright Copyright (c) 2022
+ *
+ */
+#include "Dictionary.h"
 
 Dictionary::Dictionary(DictionaryType type) : m_type(type), hash(nullptr), tree(nullptr)
 {

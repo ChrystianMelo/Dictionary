@@ -1,12 +1,23 @@
+/**
+ * @file Tree.cc
+ * @author Chrystian Melo (meloo.chrys@gmail.com)
+ * @brief Classe representando o tipo arvore para contrução do dicionário.
+ * @version 0.1
+ * @date 2022-12-13
+ *
+ * @copyright Copyright (c) 2022
+ *
+ */
 #include "Tree.h"
 #include <algorithm>
+#include <sstream>
 
 namespace
 {
 	/**
 	 * @brief Adiciona na arvore atrav�s de um processo recursivo.
 	 */
-	void insertRecursevelly(TreeNode* root, VerbeteType type, std::string key, std::string data)
+	void insertRecursevelly(TreeNode *root, VerbeteType type, std::string key, std::string data)
 	{
 		if (key <= root->getKey())
 			if (root->leftChild == nullptr)
@@ -28,7 +39,7 @@ namespace
 	/**
 	 * @brief Faz a busca na �rvore atrav�s de um processo recursivo.
 	 */
-	TreeNode* searchRecursevelly(TreeNode* root, std::string key)
+	TreeNode *searchRecursevelly(TreeNode *root, std::string key)
 	{
 		if (root == nullptr)
 			return nullptr;
@@ -41,10 +52,11 @@ namespace
 		else
 			return searchRecursevelly(root->rightChild, key);
 	}
+
 	/**
 	 * @brief Faz a busca na �rvore atrav�s de um processo recursivo.
 	 */
-	TreeNode* searchRecursevelly(TreeNode* root, std::string key, VerbeteType type)
+	TreeNode *searchRecursevelly(TreeNode *root, std::string key, VerbeteType type)
 	{
 		if (root == nullptr)
 			return nullptr;
@@ -58,7 +70,10 @@ namespace
 			return searchRecursevelly(root->rightChild, key, type);
 	}
 
-	std::string preOrder(TreeNode* raiz)
+	/**
+	 * @brief Percorre a árvore em pre-ordem.
+	 */
+	std::string preOrder(TreeNode *raiz)
 	{
 		std::string result = "";
 		if (raiz != nullptr)
@@ -70,10 +85,15 @@ namespace
 		return result;
 	}
 
-	int getOccurrences(std::string*names, int size, std::string word) {
+	/**
+	 * @brief Verifica a ocorrencia da palabra no array.
+	 */
+	int getOccurrences(std::string *names, int size, std::string word)
+	{
 		int count = 0;
 
-		for (int i = 0; i < size; i++) {
+		for (int i = 0; i < size; i++)
+		{
 			if (names[i].compare(word) == 0)
 				count++;
 		}
@@ -86,18 +106,19 @@ TreeNode::TreeNode(VerbeteType type, std::string key, std::string data) : verbet
 
 Tree::Tree() : m_root(nullptr), m_size(0) {}
 
-TreeNode* Tree::search(std::string key)
+TreeNode *Tree::search(std::string key)
 {
 	return searchRecursevelly(m_root, key);
 }
 
-TreeNode* Tree::search(std::string key, VerbeteType type) {
+TreeNode *Tree::search(std::string key, VerbeteType type)
+{
 	return searchRecursevelly(m_root, key, type);
 }
 
-void TreeNode::setVerbete(Verbete& v) { verbete = v; }
+void TreeNode::setVerbete(Verbete &v) { verbete = v; }
 
-Verbete& TreeNode::getVerbete() { return verbete; }
+Verbete &TreeNode::getVerbete() { return verbete; }
 
 std::string TreeNode::getKey() { return verbete.m_word; }
 
@@ -122,7 +143,7 @@ void Tree::insert(VerbeteType type, std::string key, std::string data)
 	}
 	else
 	{
-		TreeNode* node = search(key, type);
+		TreeNode *node = search(key, type);
 
 		if (node == nullptr || (node != nullptr && type != node->getVerbete().m_type))
 		{
@@ -136,10 +157,10 @@ void Tree::insert(VerbeteType type, std::string key, std::string data)
 	}
 }
 
-void Tree::remove(TreeNode* node)
+void Tree::remove(TreeNode *node)
 {
-	TreeNode* parent = node->parent;
-	TreeNode* temp;
+	TreeNode *parent = node->parent;
+	TreeNode *temp;
 	bool isLeftNode = node->getKey() <= parent->getKey();
 
 	if (node->rightChild == nullptr)
@@ -175,32 +196,11 @@ void Tree::remove(TreeNode* node)
 	// delete temp;
 }
 
-void Tree::removeWordsWithMeaning()
-{
-	std::string allKeys = preOrder(m_root);
-	for (int i = 0; i < m_size; ++i)
-	{
-		auto pos = allKeys.find(';');
-
-		TreeNode* node = search(std::string(allKeys.substr(0, pos)), VerbeteType::ADJETIVO);
-		if (node != nullptr && node->getVerbete().hasMeaning())
-			remove(node);
-
-		node = search(std::string(allKeys.substr(0, pos)), VerbeteType::NOME); 
-		if (node != nullptr && node->getVerbete().hasMeaning())
-			remove(node);
-
-		node = search(std::string(allKeys.substr(0, pos)), VerbeteType::VERBO); 
-		if (node != nullptr && node->getVerbete().hasMeaning())
-			remove(node);
-	}
-}
-
 std::string Tree::to_string()
 {
-	std::string* names;
+	std::string *names;
 
-	names = (std::string*)malloc(m_size * sizeof(std::string));
+	names = (std::string *)malloc(m_size * sizeof(std::string));
 
 	std::string allKeys = preOrder(m_root);
 
@@ -216,60 +216,68 @@ std::string Tree::to_string()
 	// Fiz o uso de um algoritmo da stl, não é uma estrutura de dados já imlementadas, o que é proibido.
 	std::sort(names, names + m_size);
 
-	TreeNode* item = search(*names);
+	TreeNode *item = search(*names);
 	Verbete v = item->getVerbete();
-	std::string output = v.m_word + " " + v.getType() + "\n" + v.getMeaning();
+	std::stringstream output;
+	output << v.m_word << " " << v.getType() << "\n"
+		   << v.getMeaning();
 
 	for (int i = 1; i < m_size; ++i)
 	{
 		int count = getOccurrences(names, m_size, search(*(names + i))->getKey());
 		i += count - 1;
 
-		if(count > 0) {
-			auto* node = search(*(names + i), VerbeteType::ADJETIVO);
-			if (node != nullptr) {
+		if (count > 0)
+		{
+			auto *node = search(*(names + i), VerbeteType::ADJETIVO);
+			if (node != nullptr)
+			{
 				Verbete v = node->getVerbete();
-				output += "\n";
-				output += v.m_word + " " + v.getType();
+				output << "\n";
+				output << v.m_word + " " + v.getType();
 				if (v.hasMeaning())
-					output += "\n" + v.getMeaning();
+					output << "\n" + v.getMeaning();
 				count--;
 			}
 		}
 
-		if (count > 0) {
-			auto* node = search(*(names + i), VerbeteType::NOME);
-			if (node != nullptr) {
+		if (count > 0)
+		{
+			auto *node = search(*(names + i), VerbeteType::NOME);
+			if (node != nullptr)
+			{
 				Verbete v = node->getVerbete();
-				output += "\n";
-				output += v.m_word + " " + v.getType();
+				output << "\n";
+				output << v.m_word + " " + v.getType();
 				if (v.hasMeaning())
-					output += "\n" + v.getMeaning();
+					output << "\n" + v.getMeaning();
 				count--;
 			}
 		}
 
-		if (count > 0) {
-			auto* node = search(*(names + i), VerbeteType::VERBO);
-			if (node != nullptr) {
+		if (count > 0)
+		{
+			auto *node = search(*(names + i), VerbeteType::VERBO);
+			if (node != nullptr)
+			{
 				Verbete v = node->getVerbete();
-				output += "\n";
-				output += v.m_word + " " + v.getType();
+				output << "\n";
+				output << v.m_word + " " + v.getType();
 				if (v.hasMeaning())
-					output += "\n" + v.getMeaning();
+					output << "\n" + v.getMeaning();
 				count--;
 			}
 		}
 	}
 
-	return output;
+	return output.str();
 }
 
 std::string Tree::to_string2()
 {
-	std::string* names;
+	std::string *names;
 
-	names = (std::string*)malloc(m_size * sizeof(std::string));
+	names = (std::string *)malloc(m_size * sizeof(std::string));
 
 	std::string allKeys = preOrder(m_root);
 
@@ -284,11 +292,13 @@ std::string Tree::to_string2()
 
 	std::sort(names, names + m_size);
 
-	TreeNode* item = search(*names);
-	std::string output = "";
-	if (!item->getVerbete().hasMeaning()) {
+	TreeNode *item = search(*names);
+	std::stringstream output;
+	if (!item->getVerbete().hasMeaning())
+	{
 		Verbete v = item->getVerbete();
-		output += v.m_word + " " + v.getType() + "\n" + v.getMeaning();
+		output << v.m_word << " " << v.getType() << "\n"
+			   << v.getMeaning();
 	}
 
 	for (int i = 1; i < m_size; ++i)
@@ -296,42 +306,51 @@ std::string Tree::to_string2()
 		int count = getOccurrences(names, m_size, search(*(names + i))->getKey());
 		i += count - 1;
 
-		if (count > 0) {
-			auto* node = search(*(names + i), VerbeteType::ADJETIVO);
-			if (node != nullptr && !node->getVerbete().hasMeaning()) {
+		if (count > 0)
+		{
+			auto *node = search(*(names + i), VerbeteType::ADJETIVO);
+			if (node != nullptr && !node->getVerbete().hasMeaning())
+			{
 				Verbete v = node->getVerbete();
-				output += "\n";
-				output += v.m_word + " " + v.getType();
+				output << "\n";
+				output << v.m_word << " " << v.getType();
 				if (v.hasMeaning())
-					output += "\n" + v.getMeaning();
+					output << "\n"
+						   << v.getMeaning();
 				count--;
 			}
 		}
 
-		if (count > 0) {
-			auto* node = search(*(names + i), VerbeteType::NOME);
-			if (node != nullptr && !node->getVerbete().hasMeaning()) {
+		if (count > 0)
+		{
+			auto *node = search(*(names + i), VerbeteType::NOME);
+			if (node != nullptr && !node->getVerbete().hasMeaning())
+			{
 				Verbete v = node->getVerbete();
-				output += "\n";
-				output += v.m_word + " " + v.getType();
+				output << "\n";
+				output << v.m_word << " " << v.getType();
 				if (v.hasMeaning())
-					output += "\n" + v.getMeaning();
+					output << "\n"
+						   << v.getMeaning();
 				count--;
 			}
 		}
 
-		if (count > 0) {
-			auto* node = search(*(names + i), VerbeteType::VERBO);
-			if (node != nullptr && !node->getVerbete().hasMeaning()) {
+		if (count > 0)
+		{
+			auto *node = search(*(names + i), VerbeteType::VERBO);
+			if (node != nullptr && !node->getVerbete().hasMeaning())
+			{
 				Verbete v = node->getVerbete();
-				output += "\n";
-				output += v.m_word + " " + v.getType();
+				output << "\n";
+				output << v.m_word << " " << v.getType();
 				if (v.hasMeaning())
-					output += "\n" + v.getMeaning();
+					output << "\n"
+						   << v.getMeaning();
 				count--;
 			}
 		}
 	}
 
-	return output;
+	return output.str();
 }

@@ -1,7 +1,7 @@
 /**
  * @file Verbete.h
  * @author Chrystian Melo (meloo.chrys@gmail.com)
- * @brief
+ * @brief Classe para a palavra do dicionário.
  * @version 0.1
  * @date 2022-12-13
  *
@@ -15,7 +15,7 @@
 #include <string.h>
 
 /**
- * @brief Indica o tipo da verbete (adjetivo, nome ou verbo).
+ * @brief Flag indicando o tipo da verbete (adjetivo, nome ou verbo).
  */
 enum VerbeteType
 {
@@ -25,28 +25,28 @@ enum VerbeteType
 };
 
 /**
- * @brief Defini��o da classe verbete.
+ * @brief Definição da classe para a palavra do dicionário.
  */
 class Verbete
 {
 public:
 	/**
-	 * @brief Destrutor da classe.
+	 * @brief Flag indicando o tipo da verbete (adjetivo, nome ou verbo).
 	 */
 	VerbeteType m_type;
 
 	/**
-	 * @brief
+	 * @brief Palavra chave.
 	 */
 	std::string m_word;
 
 	/**
-	 * @brief
+	 * @brief Array com os significados da palavra.
 	 */
 	std::string *m_meaning;
 
 	/**
-	 * @brief
+	 * @brief Tamanho do array de significados da palavra.
 	 */
 	int m_meaning_size;
 
@@ -56,22 +56,22 @@ public:
 	Verbete(VerbeteType type, std::string word, std::string meaning);
 
 	/**
-	 * @brief
+	 * @brief Verifica se a palavra possui algum significado definido.
 	 */
 	bool hasMeaning();
 
 	/**
-	 * @brief
+	 * @brief Retorna a classe de palabra que a palavra chave está.
 	 */
 	std::string getType();
 
 	/**
-	 * @brief
+	 * @brief Retorna um texto com todos os significados da palavra.
 	 */
 	std::string getMeaning();
 
 	/**
-	 * @brief
+	 * @brief Adiciona mais um significado para a palavra.
 	 */
 	void addMeaning(std::string meaning);
 };

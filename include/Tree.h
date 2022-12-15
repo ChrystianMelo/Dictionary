@@ -16,40 +16,31 @@
 #include "Verbete.h"
 
 /**
- * @brief
- */
-enum NodeFlag
-{
-	LEFT_NODE,
-	RIGHT_NODE
-};
-
-/**
- * @brief
+ * @brief Nodo da árvore.
  */
 class TreeNode
 {
 private:
 	/**
-	 * @brief
+	 * @brief Palavra do dicionario.
 	 */
 	Verbete verbete;
 
 public:
 	/**
-	 * @brief
+	 * @brief Pai do nodo atual
 	 */
-	TreeNode *parent;
+	TreeNode *parent = nullptr;
 
 	/**
-	 * @brief
+	 * @brief Nodo à esquerda.
 	 */
-	TreeNode *leftChild;
+	TreeNode *leftChild = nullptr;
 
 	/**
-	 * @brief
+	 * @brief Nodo à direita.
 	 */
-	TreeNode *rightChild;
+	TreeNode *rightChild = nullptr;
 
 public:
 	/**
@@ -58,86 +49,80 @@ public:
 	TreeNode(VerbeteType type, std::string key, std::string data);
 
 	/**
-	 * @brief
+	 * @brief Define a palabra do dicionario.
 	 */
 	void setVerbete(Verbete &v);
 
 	/**
-	 * @brief
+	 * @brief Retorna a palavra do dicionario.
 	 */
 	Verbete &getVerbete();
 
 	/**
-	 * @brief
+	 * @brief Retorna a palavra chave do elemento no dicionario.
 	 */
 	std::string getKey();
 
 	/**
-	 * @brief
+	 * @brief Retorna o significado da palavra no dicionario.
 	 */
 	std::string getData();
 
 	/**
-	 * @brief
+	 * @brief Adiciona mais um significado para palavra no dicionario.
 	 */
 	void addData(std::string meaning);
 };
 
 /**
- * @brief
- * -----------> https://www.codigofonte.com.br/wp-content/uploads/legado/codigos/1090/Trabalho.cpp <-----------
+ * @brief Árvore de palavras no dicionario.
  */
 class Tree
 {
 private:
 	/**
-	 * @brief
+	 * @brief Raiz da árvore.
 	 */
 	TreeNode *m_root;
 
 	/**
-	 * @brief
+	 * @brief Quantidade de nodos na árvore.
 	 */
 	int m_size;
 
 public:
 	/**
-	 * @brief
+	 * @brief Construtor da clase.
 	 */
 	Tree();
 
 	/**
-	 * @brief
+	 * @brief Faz a pesquisa na arvore, a partir da palavra chave.
 	 */
 	TreeNode *search(std::string key);
 
 	/**
-	 * @brief
+	 * @brief Faz a pesquisa na arvore, a partir da palavra chave e a classe a qual a palavra pertence.
 	 */
-	TreeNode* search(std::string key, VerbeteType type);
+	TreeNode *search(std::string key, VerbeteType type);
 
 	/**
-	 * @brief
+	 * @brief Insere uma nova palavra e seu significado no dicionario.
 	 */
 	void insert(VerbeteType type, std::string key, std::string data);
 
 	/**
-	 * @brief
+	 * @brief Remove uma palavra do dicionario.
 	 */
 	void remove(TreeNode *node);
 
 	/**
-	 * @brief
-	 */
-	void removeWordsWithMeaning();
-
-	/**
-	 * @brief
+	 * @brief Retorna um texto com todo o conteudo da arvore, ordenado alfabeticamente.
 	 */
 	std::string to_string();
 
 	/**
-	 * @brief
+	 * @brief Retorna um texto o conteudo da arvore sem significado definido, ordenado alfabeticamente.
 	 */
 	std::string to_string2();
 };

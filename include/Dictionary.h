@@ -21,7 +21,6 @@
 
 /**
  * @brief Tipo da classe dicionário.
- *
  */
 enum DictionaryType
 {
@@ -31,23 +30,22 @@ enum DictionaryType
 
 /**
  * @brief Definição da classe dicionário.
- *
  */
 class Dictionary
 {
 private:
 	/**
-	 * @brief
+	 * @brief Tipo da estrutura interna do dicionario.
 	 */
 	DictionaryType m_type;
 
 	/**
-	 * @brief
+	 * @brief Estrura interna criada com hash.
 	 */
 	Hash *hash;
 
 	/**
-	 * @brief
+	 * @brief Estrura interna criada com arvore.
 	 */
 	Tree *tree;
 
@@ -73,11 +71,6 @@ public:
 	void insert(VerbeteType type, std::string key, std::string data);
 
 	/**
-	 * @brief Metodo de imprime as palavras sem significados do dicionário.
-	 */
-	std::string to_string2();
-
-	/**
 	 * @brief Metodo de atualiza um verbete presente no dicionário.
 	 */
 	void atualizaDic(Verbete *it);
@@ -91,5 +84,10 @@ public:
 	 * @brief Metodo de imprime o dicionário.
 	 */
 	std::string to_string();
+
+	/**
+	 * @brief Metodo de imprime as palavras sem significados do dicionário.
+	 */
+	std::string to_string2();
 };
 #endif

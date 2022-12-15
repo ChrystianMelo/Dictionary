@@ -1,6 +1,18 @@
+/**
+ * @file Hash.cc
+ * @author Chrystian Melo (meloo.chrys@gmail.com)
+ * @brief Classe do tipo Hash, para constução do dicionário.
+ * @version 0.1
+ * @date 2022-12-13
+ *
+ * @copyright Copyright (c) 2022
+ *
+ */
+
 #include "Hash.h"
 
 #include <algorithm>
+#include <sstream>
 
 namespace
 {
@@ -17,10 +29,15 @@ namespace
 		*p2 = temp;
 	}
 
-	int getOccurrences(std::string* names, int size, std::string word) {
+	/**
+	 * @brief Verifica a ocorrencia da palabra no array.
+	 */
+	int getOccurrences(std::string *names, int size, std::string word)
+	{
 		int count = 0;
 
-		for (int i = 0; i < size; i++) {
+		for (int i = 0; i < size; i++)
+		{
 			if (names[i].compare(word) == 0)
 				count++;
 		}
@@ -53,7 +70,7 @@ void HashItem::addData(std::string meaning)
 }
 Hash::Hash()
 {
-	HashItem *hashArray = (HashItem *)malloc(0 * sizeof(HashItem));
+	hashArray = (HashItem *)malloc(0 * sizeof(HashItem));
 }
 Hash::~Hash()
 {
@@ -64,11 +81,12 @@ Hash::~Hash()
 	// delete hashArray;
 }
 
-HashItem* Hash::search(std::string key, VerbeteType type) {
+HashItem *Hash::search(std::string key, VerbeteType type)
+{
 
 	for (int i = 0; i < hashArraySize; ++i)
 	{
-		HashItem* item = hashArray + i;
+		HashItem *item = hashArray + i;
 		if (item->getKey() == key && item->getVerbete().m_type == type)
 			return item;
 	}
@@ -124,16 +142,6 @@ void Hash::remove(HashItem *item)
 	}
 }
 
-void Hash::removeWordsWithMeaning()
-{
-	for (int i = 0; i < hashArraySize; ++i)
-	{
-		HashItem *item = (hashArray + i);
-		if (item->getVerbete().hasMeaning())
-			remove(item);
-	}
-}
-
 std::string Hash::to_string()
 {
 	std::string *names;
@@ -150,58 +158,70 @@ std::string Hash::to_string()
 
 	HashItem *item = search(*names);
 	Verbete v = item->getVerbete();
-	std::string output = v.m_word + " " + v.getType();
+	std::stringstream output;
+	output << v.m_word << " " << v.getType();
 	if (v.hasMeaning())
-		output += "\n" + v.getMeaning();
+		output << "\n"
+			   << v.getMeaning();
 
 	for (int i = 1; i < hashArraySize; ++i)
 	{
 		int count = getOccurrences(names, hashArraySize, search(*(names + i))->getKey());
-		i += count-1;
-		if (count > 0) {
-			auto* node = search(*(names + i), VerbeteType::ADJETIVO);
-			if (node != nullptr) {
+		i += count - 1;
+		if (count > 0)
+		{
+			auto *node = search(*(names + i), VerbeteType::ADJETIVO);
+			if (node != nullptr)
+			{
 				Verbete v = node->getVerbete();
-				output += "\n";
-				output += v.m_word + " " + v.getType();
+				output << "\n";
+				output << v.m_word << " " << v.getType();
 				if (v.hasMeaning())
-					output += "\n" + v.getMeaning();
+					output << "\n"
+						   << v.getMeaning();
 				count--;
 			}
 		}
 
-		if (count > 0) {
-			auto* node = search(*(names + i), VerbeteType::NOME);
-			if (node != nullptr) {
+		if (count > 0)
+		{
+			auto *node = search(*(names + i), VerbeteType::NOME);
+			if (node != nullptr)
+			{
 				Verbete v = node->getVerbete();
-				output += "\n";
-				output += v.m_word + " " + v.getType();
+				output << "\n";
+				output << v.m_word << " " << v.getType();
 				if (v.hasMeaning())
-					output += "\n" + v.getMeaning();
+					output << "\n"
+						   << v.getMeaning();
 				count--;
 			}
 		}
 
-		if (count > 0) {
-			auto* node = search(*(names + i), VerbeteType::VERBO);
-			if (node != nullptr) {
+		if (count > 0)
+		{
+			auto *node = search(*(names + i), VerbeteType::VERBO);
+			if (node != nullptr)
+			{
 				Verbete v = node->getVerbete();
-				output += "\n";
-				output += v.m_word + " " + v.getType();
+				output << "\n";
+				output << v.m_word << " " << v.getType();
 				if (v.hasMeaning())
-					output += "\n" + v.getMeaning();
+					output << "\n"
+						   << v.getMeaning();
 				count--;
 			}
 		}
 	}
 
-	return output;
+	return output.str();
 }
 
-std::string Hash::to_string2() {
-	std::string* names;
+std::string Hash::to_string2()
+{
+	std::string *names;
 
-	names = (std::string*)malloc(hashArraySize * sizeof(std::string));
+	names = (std::string *)malloc(hashArraySize * sizeof(std::string));
 
 	for (int i = 0; i < hashArraySize; ++i)
 	{
@@ -210,56 +230,60 @@ std::string Hash::to_string2() {
 
 	std::sort(names, names + hashArraySize);
 
-	HashItem* item = search(*names);
-	std::string output = "";
-	if (!item->getVerbete().hasMeaning()) {
+	HashItem *item = search(*names);
+	std::stringstream output;
+	if (!item->getVerbete().hasMeaning())
+	{
 		Verbete v = item->getVerbete();
-		output += v.m_word + " " + v.getType();
+		output << v.m_word << " " << v.getType();
 		if (v.hasMeaning())
-			output += "\n" + v.getMeaning();
+			output << "\n"
+				   << v.getMeaning();
 	}
 
 	for (int i = 1; i < hashArraySize; ++i)
 	{
 		int count = getOccurrences(names, hashArraySize, search(*(names + i))->getKey());
 		i += count - 1;
-		if (count > 0) {
-			auto* node = search(*(names + i), VerbeteType::ADJETIVO);
-			if (node != nullptr && !node->getVerbete().hasMeaning()) {
-				Verbete v = node->getVerbete();
-				output += "\n";
-				output += v.m_word + " " + v.getType();
+		if (count > 0)
+		{
+			auto *node = search(*(names + i), VerbeteType::ADJETIVO);
+			if (node != nullptr && !node->getVerbete().hasMeaning())
+			{
+				Verbete v = item->getVerbete();
+				output << v.m_word << " " << v.getType();
 				if (v.hasMeaning())
-					output += "\n" + v.getMeaning();
-				count--;
+					output << "\n"
+						   << v.getMeaning();
 			}
 		}
 
-		if (count > 0) {
-			auto* node = search(*(names + i), VerbeteType::NOME);
-			if (node != nullptr && !node->getVerbete().hasMeaning()) {
-				Verbete v = node->getVerbete();
-				output += "\n";
-				output += v.m_word + " " + v.getType();
+		if (count > 0)
+		{
+			auto *node = search(*(names + i), VerbeteType::NOME);
+			if (node != nullptr && !node->getVerbete().hasMeaning())
+			{
+				Verbete v = item->getVerbete();
+				output << v.m_word << " " << v.getType();
 				if (v.hasMeaning())
-					output += "\n" + v.getMeaning();
-				count--;
+					output << "\n"
+						   << v.getMeaning();
 			}
 		}
 
-		if (count > 0) {
-			auto* node = search(*(names + i), VerbeteType::VERBO);
-			if (node != nullptr && !node->getVerbete().hasMeaning()) {
-				Verbete v = node->getVerbete();
-				output += "\n";
-				output += v.m_word + " " + v.getType();
+		if (count > 0)
+		{
+			auto *node = search(*(names + i), VerbeteType::VERBO);
+			if (node != nullptr && !node->getVerbete().hasMeaning())
+			{
+				Verbete v = item->getVerbete();
+				output << v.m_word << " " << v.getType();
 				if (v.hasMeaning())
-					output += "\n" + v.getMeaning();
-				count--;
+					output << "\n"
+						   << v.getMeaning();
 			}
 		}
 	}
 
-	return output;
-
+	return output.str();
 }
