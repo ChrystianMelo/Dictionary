@@ -42,13 +42,13 @@ std::string Verbete::getType()
 std::string Verbete::getMeaning()
 {
 	std::stringstream meaning;
-	meaning << "1." << *(m_meaning);
+	meaning << "1. " << *(m_meaning);
 	for (int i = 1; i < m_meaning_size; i++)
 	{
 		if (!(m_meaning + i)->empty())
 		{
 			meaning << "\n"
-					<< std::to_string(i + 1) << ".";
+					<< std::to_string(i + 1) << ". ";
 			meaning << *(m_meaning + i);
 		}
 	}

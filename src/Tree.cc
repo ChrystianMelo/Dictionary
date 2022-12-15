@@ -136,6 +136,7 @@ void TreeNode::addData(std::string meaning)
 }
 void Tree::insert(VerbeteType type, std::string key, std::string data)
 {
+	// std::cout << "tree" << std::endl;
 	if (m_root == nullptr)
 	{
 		m_root = new TreeNode(type, key, data);

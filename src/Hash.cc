@@ -107,9 +107,11 @@ HashItem *Hash::search(std::string key)
 
 void Hash::insert(VerbeteType type, std::string key, std::string data)
 {
+	// std::cout << "hash";
 	HashItem *item = search(key, type);
 	if (item == nullptr || (item != nullptr && type != item->getVerbete().m_type))
 	{
+		//	std::cout << "insert";
 		hashArraySize++;
 		hashArray = (HashItem *)realloc(hashArray, hashArraySize * sizeof(HashItem));
 
@@ -117,8 +119,10 @@ void Hash::insert(VerbeteType type, std::string key, std::string data)
 	}
 	else
 	{
+		//	std::cout << "append";
 		item->addData(data);
 	}
+	// std::cout << "done" << std::endl;
 }
 
 void Hash::remove(HashItem *item)

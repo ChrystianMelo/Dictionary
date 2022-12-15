@@ -11,6 +11,7 @@
 
 #include <iostream>
 #include <string>
+#include <algorithm>
 #include <fstream>
 
 #include "msgassert.h"
@@ -72,31 +73,35 @@ void parse_args(char **argv, int argc, std::string *inputFilename, std::string *
 int main(int argc, char *argv[])
 {
 	// Por padrão, se espera 4 entradas.
-	// erroAssert(argc > 2, "Numero de argumentos minimo para execução não atingido.");
+	erroAssert(argc > 2, "Numero de argumentos minimo para execução não atingido.");
 
 	// Processa os argumentos de entrada.
-	std::string inputFilename = "input.txt";
-	std::string outputFilename = "output.txt";
-	DictionaryType dictionaryType = DictionaryType::TREE;
+	std::string inputFilename;
+	std::string outputFilename;
+	DictionaryType dictionaryType = DictionaryType::HASH;
 
 	// Le os argumentos de entrada do programa.
-	// parse_args(argv, argc, &inputFilename, &outputFilename, &dictionaryType);
+	parse_args(argv, argc, &inputFilename, &outputFilename, &dictionaryType);
 
 	// Trata possiveis erros com as entradas.
 	erroAssert(!inputFilename.empty(), "O arquivo de entrada não é válido.");
 	erroAssert(!outputFilename.empty(), "O arquivo de saida não é válido.");
+	erroAssert(dictionaryType == DictionaryType::HASH || dictionaryType == DictionaryType::TREE, "O tipo de estrutura escolhido é invalido.");
 
 	Dictionary dictionary = Dictionary(dictionaryType);
 
 	// Inicia a leitura do arquivo de entrada.
 	std::ifstream myfileInput(inputFilename);
+	erroAssert(myfileInput.is_open(), "O arquivo não pôde ser lido.");
 
 	std::string line("");
 	while (getline(myfileInput, line))
 	{
+		// std::cout << "in[";
 		auto pos = line.find(' ');
 		std::string type(line.substr(0, pos));
 		line = line.substr(pos + 1, line.size() - 1);
+
 		VerbeteType vType;
 		if (type.compare("a") == 0)
 			vType = VerbeteType::ADJETIVO;
@@ -107,12 +112,19 @@ int main(int argc, char *argv[])
 
 		pos = line.find(']');
 		std::string word(line.substr(1, pos - 1)); // ignora os colchetes
-		line = line.substr(pos + 1, line.size() - 1);
+		line = line.substr(pos + 2, line.size());
 
 		std::string meaning(line);
 
+		meaning.erase(std::remove(meaning.begin(), meaning.end(), '\n'), meaning.end());
+		meaning.erase(std::remove(meaning.begin(), meaning.end(), '\r'), meaning.end());
+		meaning.erase(std::remove(meaning.begin(), meaning.end(), '\0'), meaning.end());
+
 		dictionary.insert(vType, word, meaning);
+
+		// std::cout << "'" << type << "' '" << word << "' '" << meaning << "']out" << std::endl;
 	}
+	myfileInput.close();
 
 	// Inicia a escrita do arquivo de saida.
 	std::ofstream myfile;
@@ -120,6 +132,7 @@ int main(int argc, char *argv[])
 	myfile << dictionary.to_string();
 
 	myfile << dictionary.to_string2() << "\n";
+	myfile.close();
 
 	return 0;
 }
