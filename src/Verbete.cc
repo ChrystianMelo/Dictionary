@@ -1,4 +1,14 @@
-﻿#include "Verbete.h"
+﻿/**
+ * @file Verbete.cc
+ * @author Chrystian Melo (meloo.chrys@gmail.com)
+ * @brief Classe para a palavra do dicionário.
+ * @version 0.1
+ * @date 2022-12-13
+ *
+ * @copyright Copyright (c) 2022
+ *
+ */
+#include "Verbete.h"
 #include <string>
 #include <sstream>
 
