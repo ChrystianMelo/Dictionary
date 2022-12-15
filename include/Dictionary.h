@@ -73,9 +73,9 @@ public:
 	void insert(VerbeteType type, std::string key, std::string data);
 
 	/**
-	 * @brief Metodo que remove do dicionário todas as palavras com ao menos um significado
+	 * @brief Metodo de imprime as palavras sem significados do dicionário.
 	 */
-	void removeWordsWithMeaning();
+	std::string to_string2();
 
 	/**
 	 * @brief Metodo de atualiza um verbete presente no dicionário.

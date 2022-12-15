@@ -98,9 +98,9 @@ int main(int argc, char *argv[])
 		std::string type(line.substr(0, pos));
 		line = line.substr(pos + 1, line.size() - 1);
 		VerbeteType vType;
-		if (type.compare("a"))
+		if (type.compare("a") == 0)
 			vType = VerbeteType::ADJETIVO;
-		else if (type.compare("n"))
+		else if (type.compare("n") == 0)
 			vType = VerbeteType::NOME;
 		else
 			vType = VerbeteType::VERBO;
@@ -118,6 +118,8 @@ int main(int argc, char *argv[])
 	std::ofstream myfile;
 	myfile.open(outputFilename);
 	myfile << dictionary.to_string();
+	
+	myfile << dictionary.to_string2() << "\n";
 
 	return 0;
 }

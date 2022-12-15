@@ -43,13 +43,12 @@ void Dictionary::insert(VerbeteType type, std::string key, std::string data)
 		tree->insert(type, key, data);
 }
 
-void Dictionary::removeWordsWithMeaning()
+std::string Dictionary::to_string2()
 {
-
 	if (m_type == DictionaryType::HASH)
-		return hash->removeWordsWithMeaning();
+		return hash->to_string2();
 	else
-		return tree->removeWordsWithMeaning();
+		return tree->to_string2();
 }
 
 void Dictionary::atualizaDic(Verbete *it)
@@ -76,7 +75,7 @@ void Dictionary::remove(Verbete &it)
 {
 	if (m_type == DictionaryType::HASH)
 	{
-		HashItem *item = hash->search(it.m_word);
+		HashItem *item = hash->search(it.m_word, it.m_type);
 		if (item != nullptr)
 			hash->remove(item);
 		else

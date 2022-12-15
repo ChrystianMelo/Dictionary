@@ -30,11 +30,13 @@ std::string Verbete::getType()
 
 std::string Verbete::getMeaning()
 {
-	std::string meaning = "1. " + *(m_meaning);
+	std::string meaning = "1." + *(m_meaning);
 	for (int i = 1; i < m_meaning_size; i++)
 	{
-		meaning += "\n" + std::to_string(i + 1) + ". ";
+		if (!(m_meaning + i)->empty()) {
+		meaning += "\n" + std::to_string(i + 1) + ".";
 		meaning += *(m_meaning + i);
+		}
 	}
 	return meaning;
 }
@@ -42,6 +44,9 @@ std::string Verbete::getMeaning()
 void Verbete::addMeaning(std::string meaning)
 {
 	m_meaning_size++;
-	m_meaning = (std::string *)realloc(m_meaning, m_meaning_size * sizeof(std::string));
+	if (m_meaning_size == 1)
+		m_meaning = (std::string*)malloc(m_meaning_size * sizeof(std::string));
+	else
+		m_meaning = (std::string *)realloc(m_meaning, m_meaning_size * sizeof(std::string));
 	new (m_meaning + (m_meaning_size - 1)) std::string(meaning);
 }

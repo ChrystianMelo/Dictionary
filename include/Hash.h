@@ -13,7 +13,6 @@
 
 #include <iostream>
 #include <string.h>
-#include <algorithm>
 #include "Verbete.h"
 
 /**
@@ -67,7 +66,7 @@ public:
 /**
  * @brief
  *
- * --------> https ://www.tutorialspoint.com/data_structures_algorithms/hash_table_program_in_c.htm <------------------
+ * 
  */
 class Hash
 {
@@ -106,6 +105,11 @@ public:
 	/**
 	 * @brief
 	 */
+	HashItem* search(std::string key, VerbeteType type);
+
+	/**
+	 * @brief
+	 */
 	void insert(VerbeteType type, std::string key, std::string data);
 
 	/**
@@ -122,6 +126,11 @@ public:
 	 * @brief
 	 */
 	std::string to_string();
+
+	/**
+	 * @brief
+	 */
+	std::string to_string2();
 };
 
 #endif

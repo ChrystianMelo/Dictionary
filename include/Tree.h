@@ -105,10 +105,16 @@ public:
 	 * @brief
 	 */
 	Tree();
+
 	/**
 	 * @brief
 	 */
 	TreeNode *search(std::string key);
+
+	/**
+	 * @brief
+	 */
+	TreeNode* search(std::string key, VerbeteType type);
 
 	/**
 	 * @brief
@@ -129,5 +135,10 @@ public:
 	 * @brief
 	 */
 	std::string to_string();
+
+	/**
+	 * @brief
+	 */
+	std::string to_string2();
 };
 #endif
