@@ -54,8 +54,8 @@ int main()
 	}
 	std::cout << "-------------TREE------------" << std::endl;
 
-	Dictionary tree = Dictionary(DictionaryType::HASH);
-
+	Dictionary tree = Dictionary(DictionaryType::TREE);
+	
 	tree.insert(VerbeteType::NOME, "1", "20");
 	tree.insert(VerbeteType::NOME, "2", "70");
 	tree.insert(VerbeteType::NOME, "42", "80");

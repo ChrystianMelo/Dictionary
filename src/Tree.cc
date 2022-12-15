@@ -58,7 +58,7 @@ namespace
 
 TreeNode::TreeNode(VerbeteType type, std::string key, std::string data) : verbete(type, key, data), leftChild(nullptr), rightChild(nullptr), parent(nullptr) {}
 
-Tree::Tree() : m_size(0) {}
+Tree::Tree() : m_root(nullptr), m_size(0) {}
 
 TreeNode *Tree::search(std::string key)
 {
@@ -157,7 +157,7 @@ std::string Tree::to_string()
 	{
 		auto pos = allKeys.find(';');
 
-		new (names + i) std::string(allKeys.substr(pos));
+		new (names + i) std::string(allKeys.substr(0, pos));
 
 		allKeys = allKeys.substr(pos + 1, allKeys.size() - 1);
 	}
