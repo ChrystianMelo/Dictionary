@@ -1,7 +1,7 @@
 /**
  * @file Verbete.h
  * @author Chrystian Melo (meloo.chrys@gmail.com)
- * @brief 
+ * @brief
  * @version 0.1
  * @date 2022-12-13
  *
@@ -14,15 +14,18 @@
 #include <iostream>
 #include <string.h>
 
- /**
-  * @brief Indica o tipo da verbete (adjetivo, nome ou verbo).
-  */
-enum VerbeteType {
-	ADJETIVO = 'a', NOME= 'n', VERBO='v'
+/**
+ * @brief Indica o tipo da verbete (adjetivo, nome ou verbo).
+ */
+enum VerbeteType
+{
+	ADJETIVO,
+	NOME,
+	VERBO
 };
 
 /**
- * @brief Definição da classe verbete.
+ * @brief Definiï¿½ï¿½o da classe verbete.
  */
 class Verbete
 {
@@ -40,7 +43,7 @@ public:
 	/**
 	 * @brief
 	 */
-	std::string* m_meaning;
+	std::string *m_meaning;
 
 	/**
 	 * @brief
@@ -55,8 +58,16 @@ public:
 	/**
 	 * @brief
 	 */
+	bool hasMeaning();
+
+	/**
+	 * @brief
+	 */
 	std::string getType();
 
+	/**
+	 * @brief
+	 */
 	std::string getMeaning();
 
 	/**
@@ -64,6 +75,5 @@ public:
 	 */
 	void addMeaning(std::string meaning);
 };
-
 
 #endif

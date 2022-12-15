@@ -43,7 +43,14 @@ void Dictionary::insert(VerbeteType type, std::string key, std::string data)
 		tree->insert(type, key, data);
 }
 
-void Dictionary::imprimeDic() {}
+void Dictionary::removeWordsWithMeaning()
+{
+
+	if (m_type == DictionaryType::HASH)
+		return hash->removeWordsWithMeaning();
+	else
+		return tree->removeWordsWithMeaning();
+}
 
 void Dictionary::atualizaDic(Verbete *it)
 {

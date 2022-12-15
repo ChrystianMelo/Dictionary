@@ -116,6 +116,11 @@ public:
 	/**
 	 * @brief
 	 */
+	void removeWordsWithMeaning();
+
+	/**
+	 * @brief
+	 */
 	std::string to_string();
 };
 

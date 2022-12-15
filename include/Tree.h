@@ -1,7 +1,7 @@
 /**
  * @file Tree.h
  * @author Chrystian Melo (meloo.chrys@gmail.com)
- * @brief 
+ * @brief
  * @version 0.1
  * @date 2022-12-13
  *
@@ -16,40 +16,42 @@
 #include "Verbete.h"
 
 /**
-* @brief
-*/
-enum NodeFlag {
-	LEFT_NODE, RIGHT_NODE
+ * @brief
+ */
+enum NodeFlag
+{
+	LEFT_NODE,
+	RIGHT_NODE
 };
 
 /**
  * @brief
  */
-class TreeNode {
+class TreeNode
+{
 private:
-
 	/**
 	 * @brief
 	 */
 	Verbete verbete;
+
 public:
+	/**
+	 * @brief
+	 */
+	TreeNode *parent;
 
 	/**
 	 * @brief
 	 */
-	TreeNode* parent;
+	TreeNode *leftChild;
 
 	/**
 	 * @brief
 	 */
-	TreeNode* leftChild;
+	TreeNode *rightChild;
 
-	/**
-	 * @brief
-	 */
-	TreeNode* rightChild;
 public:
-
 	/**
 	 * @brief Construtor da classe.
 	 */
@@ -58,12 +60,12 @@ public:
 	/**
 	 * @brief
 	 */
-	void setVerbete(Verbete& v);
+	void setVerbete(Verbete &v);
 
 	/**
 	 * @brief
 	 */
-	Verbete& getVerbete();
+	Verbete &getVerbete();
 
 	/**
 	 * @brief
@@ -79,27 +81,26 @@ public:
 	 * @brief
 	 */
 	void addData(std::string meaning);
-
 };
 
 /**
  * @brief
  * -----------> https://www.codigofonte.com.br/wp-content/uploads/legado/codigos/1090/Trabalho.cpp <-----------
  */
-class Tree {
+class Tree
+{
 private:
-
 	/**
 	 * @brief
 	 */
-	TreeNode* m_root;
+	TreeNode *m_root;
 
 	/**
 	 * @brief
 	 */
 	int m_size;
-public:
 
+public:
 	/**
 	 * @brief
 	 */
@@ -107,7 +108,7 @@ public:
 	/**
 	 * @brief
 	 */
-	TreeNode* search(std::string key);
+	TreeNode *search(std::string key);
 
 	/**
 	 * @brief
@@ -117,7 +118,12 @@ public:
 	/**
 	 * @brief
 	 */
-	void remove(TreeNode * node);
+	void remove(TreeNode *node);
+
+	/**
+	 * @brief
+	 */
+	void removeWordsWithMeaning();
 
 	/**
 	 * @brief

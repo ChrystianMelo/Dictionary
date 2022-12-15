@@ -145,6 +145,20 @@ void Tree::remove(TreeNode *node)
 	// delete temp;
 }
 
+void Tree::removeWordsWithMeaning()
+{
+	std::string allKeys = preOrder(m_root);
+	for (int i = 0; i < m_size; ++i)
+	{
+		auto pos = allKeys.find(';');
+
+		TreeNode *node = search(std::string(allKeys.substr(0, pos)));
+
+		if (node->getVerbete().hasMeaning())
+			remove(node);
+	}
+}
+
 std::string Tree::to_string()
 {
 	std::string *names;

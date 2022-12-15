@@ -100,6 +100,16 @@ void Hash::remove(HashItem *item)
 	}
 }
 
+void Hash::removeWordsWithMeaning()
+{
+	for (int i = 0; i < hashArraySize; ++i)
+	{
+		HashItem *item = (hashArray + i);
+		if (item->getVerbete().hasMeaning())
+			remove(item);
+	}
+}
+
 std::string Hash::to_string()
 {
 	std::string *names;
@@ -115,7 +125,9 @@ std::string Hash::to_string()
 
 	HashItem *item = search(*names);
 	Verbete v = item->getVerbete();
-	std::string output = v.m_word + " " + v.getType() + "\n" + v.getMeaning();
+	std::string output = v.m_word + " " + v.getType();
+	if (v.hasMeaning())
+		output += "\n" + v.getMeaning();
 
 	for (int i = 1; i < hashArraySize; ++i)
 	{
