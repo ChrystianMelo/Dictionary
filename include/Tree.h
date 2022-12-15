@@ -93,7 +93,17 @@ private:
 	 * @brief
 	 */
 	TreeNode* m_root;
+
+	/**
+	 * @brief
+	 */
+	int m_size;
 public:
+
+	/**
+	 * @brief
+	 */
+	Tree();
 	/**
 	 * @brief
 	 */
@@ -108,5 +118,10 @@ public:
 	 * @brief
 	 */
 	void remove(TreeNode * node);
+
+	/**
+	 * @brief
+	 */
+	std::string to_string();
 };
 #endif

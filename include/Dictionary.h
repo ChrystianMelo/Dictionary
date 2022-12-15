@@ -23,10 +23,8 @@
  * @brief Tipo da classe dicionário.
  *
  */
-enum DictionaryType
-{
-	HASH,
-	TREE
+enum DictionaryType {
+	HASH, TREE
 };
 
 /**
@@ -35,7 +33,7 @@ enum DictionaryType
  */
 class Dictionary
 {
-private:
+private: 
 	/**
 	 * @brief
 	 */
@@ -44,13 +42,12 @@ private:
 	/**
 	 * @brief
 	 */
-	Hash *hash;
+	Hash* hash;
 
 	/**
 	 * @brief
 	 */
 	Tree *tree;
-
 public:
 	/**
 	 * @brief Construtor da classe.
@@ -65,7 +62,7 @@ public:
 	/**
 	 * @brief Metodo de pesquisa no dicionário.
 	 */
-	Verbete &search(std::string word);
+	Verbete& search(std::string word);
 
 	/**
 	 * @brief Metodo de insere no dicionário.
@@ -80,11 +77,16 @@ public:
 	/**
 	 * @brief Metodo de atualiza um verbete presente no dicionário.
 	 */
-	void atualizaDic(Verbete *it);
+	void atualizaDic(Verbete* it);
 
 	/**
 	 * @brief Metodo de remove um verbete do dicionário.
 	 */
-	void remove(Verbete &it);
+	void remove(Verbete& it);
+
+	/**
+	 * @brief 
+	 */
+	std::string to_string();
 };
 #endif

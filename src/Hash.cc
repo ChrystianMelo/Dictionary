@@ -1,6 +1,5 @@
 #include "Hash.h"
 
-
 namespace {
 	/**
 	 * @brief Troca as posições do array.
@@ -87,4 +86,28 @@ void Hash::remove(HashItem* item) {
 		}
 
 	}
+}
+
+std::string Hash::to_string() {
+	std::string* names;
+
+	names = (std::string*)malloc(hashArraySize * sizeof(std::string));
+
+	for (int i = 0; i < hashArraySize; ++i) {
+		new (names + i) std::string((hashArray + i)->getKey());
+	}
+
+	std::sort(names, names+ hashArraySize);
+
+	HashItem* item = search(*names);
+	Verbete v = item->getVerbete();
+	std::string output = v.m_word + " " + v.getType() + "\n" + v.getMeaning();
+
+	for (int i = 1; i < hashArraySize; ++i) {
+		Verbete v = search(*(names+i))->getVerbete();
+		output += "\n";
+		output += v.m_word + " " + v.getType() + "\n" + v.getMeaning();
+	}
+
+	return output;
 }

@@ -1,4 +1,5 @@
 #include "Verbete.h"
+#include <string>
 
 Verbete::Verbete(VerbeteType type, std::string word, std::string meaning) : m_type(type), m_word(word) {
 	m_meaning_size = 1;
@@ -16,9 +17,11 @@ std::string Verbete::getType() {
 }
 
 std::string Verbete::getMeaning() {
-	std::string meaning = *m_meaning;
-	for (int i = 1; i < m_meaning_size; i++)
-		meaning += "," + *(m_meaning + i);
+	std::string meaning = "1. " + *( m_meaning);
+	for (int i = 1; i < m_meaning_size; i++) {
+		meaning += "\n" + std::to_string(i+1) + ". ";
+		meaning += * (m_meaning + i);
+	}
 	return meaning;
 }
 

@@ -18,7 +18,7 @@
 
  /**
   * @brief
-  */ 
+  */
 class HashItem {
 private:
 
@@ -111,6 +111,11 @@ public:
 	 * @brief
 	 */
 	void remove(HashItem* item);
+
+	/**
+	 * @brief
+	 */
+	std::string to_string();
 };
 
 #endif
