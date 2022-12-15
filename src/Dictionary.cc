@@ -1,4 +1,4 @@
-#include "Dictionary.h"
+﻿#include "Dictionary.h"
 
 Dictionary::Dictionary(DictionaryType type) : m_type(type), hash(nullptr), tree(nullptr)
 {

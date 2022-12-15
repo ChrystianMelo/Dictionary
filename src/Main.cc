@@ -72,15 +72,15 @@ void parse_args(char **argv, int argc, std::string *inputFilename, std::string *
 int main(int argc, char *argv[])
 {
 	// Por padrão, se espera 4 entradas.
-	erroAssert(argc > 2, "Numero de argumentos minimo para execução não atingido.");
+	//erroAssert(argc > 2, "Numero de argumentos minimo para execução não atingido.");
 
 	// Processa os argumentos de entrada.
-	std::string inputFilename;
-	std::string outputFilename;
-	DictionaryType dictionaryType;
+	std::string inputFilename = "input.txt";
+	std::string outputFilename = "output.txt";
+	DictionaryType dictionaryType = DictionaryType::TREE;
 
 	// Le os argumentos de entrada do programa.
-	parse_args(argv, argc, &inputFilename, &outputFilename, &dictionaryType);
+	//parse_args(argv, argc, &inputFilename, &outputFilename, &dictionaryType);
 
 	// Trata possiveis erros com as entradas.
 	erroAssert(!inputFilename.empty(), "O arquivo de entrada não é válido.");

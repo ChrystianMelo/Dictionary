@@ -1,4 +1,4 @@
-#include "Verbete.h"
+﻿#include "Verbete.h"
 #include <string>
 
 Verbete::Verbete(VerbeteType type, std::string word, std::string meaning) : m_type(type), m_word(word)
