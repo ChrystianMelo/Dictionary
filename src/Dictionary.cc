@@ -12,7 +12,7 @@
  */
 #include "Dictionary.h"
 
-Dictionary::Dictionary(DictionaryType type) : m_type(type), hash(nullptr), tree(nullptr)
+Dictionary::Dictionary(DictionaryType &type) : m_type(type), hash(nullptr), tree(nullptr)
 {
 	if (m_type == DictionaryType::HASH)
 		hash = new Hash();
@@ -29,7 +29,7 @@ Dictionary::~Dictionary()
 		delete tree;*/
 }
 
-Verbete &Dictionary::search(std::string word)
+Verbete &Dictionary::search(std::string &word)
 {
 	if (m_type == DictionaryType::HASH)
 	{
@@ -47,20 +47,12 @@ Verbete &Dictionary::search(std::string word)
 	throw new std::exception();
 }
 
-void Dictionary::insert(VerbeteType type, std::string key, std::string data)
+void Dictionary::insert(VerbeteType &type, std::string &key, std::string &data)
 {
 	if (m_type == DictionaryType::HASH)
 		hash->insert(type, key, data);
 	else
 		tree->insert(type, key, data);
-}
-
-std::string Dictionary::to_string2()
-{
-	if (m_type == DictionaryType::HASH)
-		return hash->to_string2();
-	else
-		return tree->to_string2();
 }
 
 void Dictionary::atualizaDic(Verbete *it)
@@ -109,4 +101,12 @@ std::string Dictionary::to_string()
 		return hash->to_string();
 	else
 		return tree->to_string();
+}
+
+std::string Dictionary::to_string2()
+{
+	if (m_type == DictionaryType::HASH)
+		return hash->to_string2();
+	else
+		return tree->to_string2();
 }

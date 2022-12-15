@@ -102,11 +102,11 @@ namespace
 	}
 }
 
-TreeNode::TreeNode(VerbeteType type, std::string key, std::string data) : verbete(type, key, data), leftChild(nullptr), rightChild(nullptr), parent(nullptr) {}
+TreeNode::TreeNode(VerbeteType &type, std::string &key, std::string &data) : verbete(type, key, data), leftChild(nullptr), rightChild(nullptr), parent(nullptr) {}
 
 Tree::Tree() : m_root(nullptr), m_size(0) {}
 
-TreeNode *Tree::search(std::string key)
+TreeNode *Tree::search(std::string &key)
 {
 	return searchRecursevelly(m_root, key);
 }
@@ -120,16 +120,16 @@ void TreeNode::setVerbete(Verbete &v) { verbete = v; }
 
 Verbete &TreeNode::getVerbete() { return verbete; }
 
-std::string TreeNode::getKey() { return verbete.m_word; }
+std::string &TreeNode::getKey() { return verbete.m_word; }
 
-void TreeNode::addData(std::string meaning)
+void TreeNode::addData(std::string &meaning)
 {
 	// std::cout << "in{'" << verbete.getType() << "' '" << getKey() << "' '" << verbete.m_meaning.size << "' '" << verbete.getMeaning() << "'}out" << std::endl;
 	verbete.addMeaning(meaning);
 	// std::cout << "in{'" << verbete.getType() << "' '" << getKey() << "' '" << verbete.m_meaning.size << "' '" << verbete.getMeaning() << "'}out" << std::endl;
 }
 
-void Tree::insert(VerbeteType type, std::string key, std::string data)
+void Tree::insert(VerbeteType &type, std::string &key, std::string &data)
 {
 	if (m_root == nullptr)
 	{
@@ -226,7 +226,7 @@ std::string Tree::to_string()
 
 		if (count > 0)
 		{
-			auto *node = search(*(names + i), VerbeteType::ADJETIVO);
+			TreeNode *node = search(*(names + i), VerbeteType::ADJETIVO);
 			if (node != nullptr)
 			{
 				Verbete v = node->getVerbete();
@@ -240,7 +240,7 @@ std::string Tree::to_string()
 
 		if (count > 0)
 		{
-			auto *node = search(*(names + i), VerbeteType::NOME);
+			TreeNode *node = search(*(names + i), VerbeteType::NOME);
 			if (node != nullptr)
 			{
 				Verbete v = node->getVerbete();
@@ -254,7 +254,7 @@ std::string Tree::to_string()
 
 		if (count > 0)
 		{
-			auto *node = search(*(names + i), VerbeteType::VERBO);
+			TreeNode *node = search(*(names + i), VerbeteType::VERBO);
 			if (node != nullptr)
 			{
 				Verbete v = node->getVerbete();

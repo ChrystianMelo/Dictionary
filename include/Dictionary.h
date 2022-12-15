@@ -53,7 +53,7 @@ public:
 	/**
 	 * @brief Construtor da classe.
 	 */
-	Dictionary(DictionaryType type);
+	Dictionary(DictionaryType &type);
 
 	/**
 	 * @brief Destrutor da classe.
@@ -63,12 +63,12 @@ public:
 	/**
 	 * @brief Metodo de pesquisa no dicionário.
 	 */
-	Verbete &search(std::string word);
+	Verbete &search(std::string &word);
 
 	/**
 	 * @brief Metodo de insere no dicionário.
 	 */
-	void insert(VerbeteType type, std::string key, std::string data);
+	void insert(VerbeteType &type, std::string &key, std::string &data);
 
 	/**
 	 * @brief Metodo de atualiza um verbete presente no dicionário.

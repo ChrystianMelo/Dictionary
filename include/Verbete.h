@@ -30,55 +30,56 @@ enum VerbeteType
 class Verbete
 {
 private:
+	/**
+	 * @brief Definição do nodo da lista de significados
+	 */
 	class Meaning
 	{
 	public:
+		/**
+		 * @brief Conteudo do nodo.
+		 */
 		std::string content;
+		/**
+		 * @brief Proximo nodo.
+		 */
 		Meaning *next;
 
-		Meaning(std::string c) : content(c), next(nullptr) {}
+		/**
+		 * @brief Construtor da classe
+		 */
+		Meaning(std::string &c);
 	};
+
+	/**
+	 * @brief Definição da lista de significados
+	 */
 	class Meanings
 	{
 	public:
+		/**
+		 * @brief Celula cabeça da lista.
+		 */
 		Meaning *head;
+		/**
+		 * @brief Tamanho da lista.
+		 */
 		int size;
 
-		Meanings() : head(nullptr), size(0) {}
+		/**
+		 * @brief Construtor da classe.
+		 */
+		Meanings();
 
-		void add(std::string content)
-		{
-			Meaning *lastUser = head;
-			if (size == 0)
-				head = new Meaning(content);
-			else
-			{
-				for (int i = 1; i < size; i++)
-					lastUser = lastUser->next;
-				lastUser->next = new Meaning(content);
-			}
-			size++;
-		}
+		/**
+		 * @brief Adiciona uma celula na lista.
+		 */
+		void add(std::string &content);
 
-		Meaning *get(int index)
-		{
-			Meaning *element = nullptr;
-
-			if (index == 0)
-				element = head;
-			else
-			{
-				Meaning *node = head;
-				for (int i = 1; i < size; i++)
-				{
-					node = node->next;
-					if (i == index)
-						element = node;
-				}
-			}
-
-			return element;
-		}
+		/**
+		 * @brief Retorna a celula no index procurado.
+		 */
+		Meaning *get(int index);
 	};
 
 public:
@@ -100,7 +101,7 @@ public:
 	/**
 	 * @brief Contrutor da classe.
 	 */
-	Verbete(VerbeteType type, std::string word, std::string meaning);
+	Verbete(VerbeteType &type, std::string &word, std::string &meaning);
 
 	/**
 	 * @brief Verifica se a palavra possui algum significado definido.
@@ -120,7 +121,7 @@ public:
 	/**
 	 * @brief Adiciona mais um significado para a palavra.
 	 */
-	void addMeaning(std::string meaning);
+	void addMeaning(std::string &meaning);
 };
 
 #endif

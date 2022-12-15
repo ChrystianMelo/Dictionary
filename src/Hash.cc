@@ -46,7 +46,7 @@ namespace
 	}
 }
 
-HashItem::HashItem(VerbeteType type, std::string key, std::string data) : verbete(type, key, data) {}
+HashItem::HashItem(VerbeteType &type, std::string &key, std::string &data) : verbete(type, key, data) {}
 
 HashItem::~HashItem() {}
 
@@ -54,9 +54,9 @@ void HashItem::setVerbete(Verbete &v) { verbete = v; }
 
 Verbete &HashItem::getVerbete() { return verbete; }
 
-std::string HashItem::getKey() { return verbete.m_word; }
+std::string &HashItem::getKey() { return verbete.m_word; }
 
-void HashItem::addData(std::string meaning)
+void HashItem::addData(std::string &meaning)
 {
 	verbete.addMeaning(meaning);
 }
@@ -85,7 +85,7 @@ HashItem *Hash::search(std::string key, VerbeteType type)
 
 	return nullptr;
 }
-HashItem *Hash::search(std::string key)
+HashItem *Hash::search(std::string &key)
 {
 	for (int i = 0; i < hashArraySize; ++i)
 	{
@@ -97,7 +97,7 @@ HashItem *Hash::search(std::string key)
 	return nullptr;
 }
 
-void Hash::insert(VerbeteType type, std::string key, std::string data)
+void Hash::insert(VerbeteType &type, std::string &key, std::string &data)
 {
 	// std::cout << "hash";
 	HashItem *item = search(key, type);

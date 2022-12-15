@@ -46,7 +46,7 @@ public:
 	/**
 	 * @brief Construtor da classe.
 	 */
-	TreeNode(VerbeteType type, std::string key, std::string data);
+	TreeNode(VerbeteType &type, std::string &key, std::string &data);
 
 	/**
 	 * @brief Define a palabra do dicionario.
@@ -61,12 +61,12 @@ public:
 	/**
 	 * @brief Retorna a palavra chave do elemento no dicionario.
 	 */
-	std::string getKey();
+	std::string &getKey();
 
 	/**
 	 * @brief Adiciona mais um significado para palavra no dicionario.
 	 */
-	void addData(std::string meaning);
+	void addData(std::string &meaning);
 };
 
 /**
@@ -94,7 +94,7 @@ public:
 	/**
 	 * @brief Faz a pesquisa na arvore, a partir da palavra chave.
 	 */
-	TreeNode *search(std::string key);
+	TreeNode *search(std::string &key);
 
 	/**
 	 * @brief Faz a pesquisa na arvore, a partir da palavra chave e a classe a qual a palavra pertence.
@@ -104,7 +104,7 @@ public:
 	/**
 	 * @brief Insere uma nova palavra e seu significado no dicionario.
 	 */
-	void insert(VerbeteType type, std::string key, std::string data);
+	void insert(VerbeteType &type, std::string &key, std::string &data);
 
 	/**
 	 * @brief Remove uma palavra do dicionario.

@@ -13,7 +13,45 @@
 #include <sstream>
 #include "msgassert.h"
 
-Verbete::Verbete(VerbeteType type, std::string word, std::string meaning) : m_type(type), m_word(word)
+Verbete::Meaning::Meaning(std::string &c) : content(c), next(nullptr) {}
+
+Verbete::Meanings::Meanings() : head(nullptr), size(0) {}
+
+void Verbete::Meanings::add(std::string &content)
+{
+	Meaning *lastUser = head;
+	if (size == 0)
+		head = new Meaning(content);
+	else
+	{
+		for (int i = 1; i < size; i++)
+			lastUser = lastUser->next;
+		lastUser->next = new Meaning(content);
+	}
+	size++;
+}
+
+Verbete::Meaning *Verbete::Meanings::get(int index)
+{
+	Meaning *element = nullptr;
+
+	if (index == 0)
+		element = head;
+	else
+	{
+		Meaning *node = head;
+		for (int i = 1; i < size; i++)
+		{
+			node = node->next;
+			if (i == index)
+				element = node;
+		}
+	}
+
+	return element;
+}
+
+Verbete::Verbete(VerbeteType &type, std::string &word, std::string &meaning) : m_type(type), m_word(word)
 {
 	m_meaning = Meanings();
 	if (!meaning.empty())
@@ -52,7 +90,7 @@ std::string Verbete::getMeaning()
 	return meaning.str();
 }
 
-void Verbete::addMeaning(std::string meaning)
+void Verbete::addMeaning(std::string &meaning)
 {
 	m_meaning.add(meaning);
 }
