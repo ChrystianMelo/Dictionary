@@ -120,9 +120,9 @@ int main(int argc, char *argv[])
 		meaning.erase(std::remove(meaning.begin(), meaning.end(), '\r'), meaning.end());
 		meaning.erase(std::remove(meaning.begin(), meaning.end(), '\0'), meaning.end());
 
-		dictionary.insert(vType, word, meaning);
-
 		// std::cout << "'" << type << "' '" << word << "' '" << meaning << "']out" << std::endl;
+
+		dictionary.insert(vType, word, meaning);
 	}
 	myfileInput.close();
 

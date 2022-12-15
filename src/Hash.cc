@@ -56,14 +56,6 @@ Verbete &HashItem::getVerbete() { return verbete; }
 
 std::string HashItem::getKey() { return verbete.m_word; }
 
-std::string HashItem::getData()
-{
-	std::string meaning = *verbete.m_meaning;
-	for (int i = 1; i < verbete.m_meaning_size; i++)
-		meaning += "," + *(verbete.m_meaning + i);
-	return meaning;
-}
-
 void HashItem::addData(std::string meaning)
 {
 	verbete.addMeaning(meaning);

@@ -122,21 +122,15 @@ Verbete &TreeNode::getVerbete() { return verbete; }
 
 std::string TreeNode::getKey() { return verbete.m_word; }
 
-std::string TreeNode::getData()
-{
-	std::string meaning = *verbete.m_meaning;
-	for (int i = 1; i < verbete.m_meaning_size; i++)
-		meaning += ", " + *(verbete.m_meaning + i);
-	return meaning;
-}
-
 void TreeNode::addData(std::string meaning)
 {
+	// std::cout << "in{'" << verbete.getType() << "' '" << getKey() << "' '" << verbete.m_meaning.size << "' '" << verbete.getMeaning() << "'}out" << std::endl;
 	verbete.addMeaning(meaning);
+	// std::cout << "in{'" << verbete.getType() << "' '" << getKey() << "' '" << verbete.m_meaning.size << "' '" << verbete.getMeaning() << "'}out" << std::endl;
 }
+
 void Tree::insert(VerbeteType type, std::string key, std::string data)
 {
-	// std::cout << "tree" << std::endl;
 	if (m_root == nullptr)
 	{
 		m_root = new TreeNode(type, key, data);
@@ -220,8 +214,10 @@ std::string Tree::to_string()
 	TreeNode *item = search(*names);
 	Verbete v = item->getVerbete();
 	std::stringstream output;
-	output << v.m_word << " " << v.getType() << "\n"
-		   << v.getMeaning();
+	output << v.m_word << " " << v.getType();
+	if (v.hasMeaning())
+		output << "\n"
+			   << v.getMeaning();
 
 	for (int i = 1; i < m_size; ++i)
 	{

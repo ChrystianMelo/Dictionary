@@ -29,6 +29,58 @@ enum VerbeteType
  */
 class Verbete
 {
+private:
+	class Meaning
+	{
+	public:
+		std::string content;
+		Meaning *next;
+
+		Meaning(std::string c) : content(c), next(nullptr) {}
+	};
+	class Meanings
+	{
+	public:
+		Meaning *head;
+		int size;
+
+		Meanings() : head(nullptr), size(0) {}
+
+		void add(std::string content)
+		{
+			Meaning *lastUser = head;
+			if (size == 0)
+				head = new Meaning(content);
+			else
+			{
+				for (int i = 1; i < size; i++)
+					lastUser = lastUser->next;
+				lastUser->next = new Meaning(content);
+			}
+			size++;
+		}
+
+		Meaning *get(int index)
+		{
+			Meaning *element = nullptr;
+
+			if (index == 0)
+				element = head;
+			else
+			{
+				Meaning *node = head;
+				for (int i = 1; i < size; i++)
+				{
+					node = node->next;
+					if (i == index)
+						element = node;
+				}
+			}
+
+			return element;
+		}
+	};
+
 public:
 	/**
 	 * @brief Flag indicando o tipo da verbete (adjetivo, nome ou verbo).
@@ -43,12 +95,7 @@ public:
 	/**
 	 * @brief Array com os significados da palavra.
 	 */
-	std::string *m_meaning;
-
-	/**
-	 * @brief Tamanho do array de significados da palavra.
-	 */
-	int m_meaning_size;
+	Meanings m_meaning;
 
 	/**
 	 * @brief Contrutor da classe.

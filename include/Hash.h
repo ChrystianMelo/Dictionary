@@ -53,11 +53,6 @@ public:
 	std::string getKey();
 
 	/**
-	 * @brief Retorna os significados do elemento no dicionario.
-	 */
-	std::string getData();
-
-	/**
 	 * @brief Adiciona mais um significdo ao elemento no dicionario.
 	 */
 	void addData(std::string meaning);
