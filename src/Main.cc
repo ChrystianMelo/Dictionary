@@ -112,7 +112,9 @@ int main(int argc, char *argv[])
 
 		pos = line.find(']');
 		std::string word(line.substr(1, pos - 1)); // ignora os colchetes
-		line = line.substr(pos + 2, line.size());
+		line = line.substr(pos + 1, line.size());
+		if (!line.empty())
+			line = line.substr(1, line.size());
 
 		std::string meaning(line);
 
